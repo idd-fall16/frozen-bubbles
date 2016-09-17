@@ -350,6 +350,7 @@ public abstract class GameApplet extends Applet implements Runnable, KeyListener
             }
 
             listKeys = newListKeys;
+
         }
     }
 

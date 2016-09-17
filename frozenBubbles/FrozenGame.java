@@ -69,6 +69,8 @@ public class FrozenGame extends GameScreen
     public final static int KEY_S = 83;
 
     boolean modeKeyPressed, soundKeyPressed;
+
+	int prevAngle = 0; //for cannon
         
 	Image background;
 	Image[] bubbles;
@@ -406,10 +408,12 @@ public class FrozenGame extends GameScreen
 	
 	public void play(int[] keyCodes, Point mouseCoord, boolean leftButton, boolean rightButton) 
 	{
+		System.out.println("play");
 		int[] move = new int[2];
 		boolean newModeKeyState = false;
         boolean newSoundKeyState = false;
-                
+//		System.out.println("first char = " + SerialTest.playerInput.charAt(0));
+//		System.out.println("length of keyCodes = " + Integer.toString(keyCodes.length));
 		for (int i=0 ; i<keyCodes.length ; i++)
 		{
 			int current = keyCodes[i];
@@ -423,7 +427,16 @@ public class FrozenGame extends GameScreen
             }                        
                         
 			if (current == KEY_LEFT || current == KEY_RIGHT)
+//			System.out.println("first char = " + SerialTest.playerInput.charAt(0));
+//			if (SerialTest.playerInput.charAt(0) == 'p')
 			{
+				if (Integer.parseInt(SerialTest.playerInput.substring(2)) > 0) {
+					current = KEY_RIGHT;
+				}
+				else {
+					current = KEY_LEFT;
+				}
+
 				if (move[HORIZONTAL_MOVE] == 0)
 				{
 					move[HORIZONTAL_MOVE] = current;
@@ -433,12 +446,58 @@ public class FrozenGame extends GameScreen
 					move[HORIZONTAL_MOVE] = 0;
 				}
 			}
-			
-			if (current == SPACE || current == KEY_SHIFT)
-			{
-				move[FIRE] = SPACE;
-			}
+//
+//			if (current == SPACE || current == KEY_SHIFT)
+//			{
+//				move[FIRE] = SPACE;
+//			}
 		}
+
+//		System.out.println("first char = " + SerialTest.playerInput.charAt(0));
+		int value = Integer.parseInt(SerialTest.playerInput.substring(2));
+		boolean moveHorizontal = false;
+		System.out.println("value = " + Integer.toString(value));
+		System.out.println("moveHorizontal = " + moveHorizontal);
+		if (SerialTest.playerInput.charAt(0) == 'p' && (value > prevAngle + 2 || value < prevAngle - 2))
+		{
+			System.out.println("REQUEST CANNON MOVE");
+//			int current = 0;
+//
+//			if (value > prevAngle+2) {
+//				current = KEY_RIGHT;
+//				System.out.println("TURN RIGHT");
+//			}
+//			else if (value < prevAngle-2) {
+//				current = KEY_LEFT;
+//				System.out.println("TURN LEFT");
+//			}
+
+//			if (Integer.parseInt(SerialTest.playerInput.substring(2)) > 0) {
+//				current = KEY_RIGHT;
+//			}
+//			else {
+//				current = KEY_LEFT;
+//			}
+
+			if (move[HORIZONTAL_MOVE] == 0)
+			{
+				move[HORIZONTAL_MOVE] = value;
+//				move[HORIZONTAL_MOVE] = current;
+			}
+			else
+			{
+				move[HORIZONTAL_MOVE] = 0;
+			}
+			prevAngle = value;
+			moveHorizontal = true;
+			System.out.println("moveHorizontal = " + moveHorizontal);
+		}
+
+		if (SerialTest.playerInput.charAt(0) == 'f' && SerialTest.playerInput.charAt(2) == '1')
+		{
+			move[FIRE] = SPACE;
+		}
+
 		
         if (newModeKeyState != modeKeyPressed) {
             if (newModeKeyState) {
@@ -497,7 +556,7 @@ public class FrozenGame extends GameScreen
 			}
 		}
 		else
-		{						
+		{
 			if (move[FIRE] == SPACE || hurryTime > 480)
 			{
 				if (movingBubble == null && readyToFire)
@@ -531,24 +590,45 @@ public class FrozenGame extends GameScreen
 					penguin.updateState(PenguinSprite.STATE_VOID);
 				}
 			}
+			else if (moveHorizontal)
+			{
+				System.out.println("in moveHorizontal");
+//				System.out.println("launchBubblePosition = " + Integer.toString(launchBubblePosition));
+				launchBubblePosition = (int)((move[HORIZONTAL_MOVE] + 90.) / 180 * 76 + 2);
+//				launchBubblePosition = 40;
+				System.out.println("launchBubblePosition = " + Integer.toString(launchBubblePosition));
+				System.out.println("launchBubblePosition >> 1 = " + Integer.toString(launchBubblePosition >> 1));
+				launchBubble.changeDirection(launchBubblePosition >> 1);
+				if (move[HORIZONTAL_MOVE] < 0) {
+					penguin.updateState(PenguinSprite.STATE_TURN_LEFT);
+				}
+				else {
+					penguin.updateState(PenguinSprite.STATE_TURN_RIGHT);
+				}
+//				penguin.updateState(PenguinSprite.STATE_TURN_LEFT);
+				moveHorizontal = false;
+			}
 			else if (move[HORIZONTAL_MOVE] == KEY_LEFT)
 			{
+				System.out.println("launchBubblePosition = " + Integer.toString(launchBubblePosition));
 				if (launchBubblePosition > 2)
 				{
 					launchBubblePosition--;
 				}
+				System.out.println("launchBubblePosition >> 1 = " + Integer.toString(launchBubblePosition >> 1));
 				launchBubble.changeDirection(launchBubblePosition >> 1);
 				penguin.updateState(PenguinSprite.STATE_TURN_LEFT);
 			}
-			else if (move[HORIZONTAL_MOVE] == KEY_RIGHT)
-			{
-				if (launchBubblePosition<78)
-				{
-					launchBubblePosition++;
-				}
-				launchBubble.changeDirection(launchBubblePosition >> 1);
-				penguin.updateState(PenguinSprite.STATE_TURN_RIGHT);
-			}
+//			else if (move[HORIZONTAL_MOVE] == KEY_RIGHT)
+//			{
+//				System.out.println("launchBubblePosition = " + Integer.toString(launchBubblePosition));
+//				if (launchBubblePosition<78)
+//				{
+//					launchBubblePosition++;
+//				}
+//				launchBubble.changeDirection(launchBubblePosition >> 1);
+//				penguin.updateState(PenguinSprite.STATE_TURN_RIGHT);
+//			}
 			else
 			{
 				penguin.updateState(PenguinSprite.STATE_VOID);

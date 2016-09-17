@@ -46,6 +46,7 @@
 import net.library.jiga.*;
 
 import java.awt.*;
+import java.lang.NullPointerException;
 import java.util.Random;
 
 public class SplashScreen extends GameScreen
@@ -119,14 +120,15 @@ public class SplashScreen extends GameScreen
 	{
 		addToBackground(fullBackground, new Point(0, 0));
 		addToBackground(splashBackground, new Point(116, 0));	
-	}	
+	}
 	
 	public void play(int[] keyCodes, Point mouseCoord, boolean leftButton, boolean rightButton) 
 	{
        		boolean newModeKeyState = false;
                 boolean newSoundKeyState = false;
             
-                if (gameInitialized) {            
+                if (gameInitialized) {
+
                     for (int i=0 ; i<keyCodes.length ; i++) {
                             int current = keyCodes[i];
                             
@@ -136,14 +138,31 @@ public class SplashScreen extends GameScreen
 
                             if (current == FrozenGame.KEY_S) {
                                 newSoundKeyState = true;
-                            }                        
+                            }
                             
-                            if (current == FrozenGame.SPACE || current == FrozenGame.KEY_SHIFT) {
+                            if ( current == FrozenGame.SPACE || current == FrozenGame.KEY_SHIFT) {
                                     ((LevelManager)getGameApplet().getGameContext().getObject("levelManager")).goToFirstLevel();
                                     gameInitialized = false;
                                     getGameApplet().setCurrentScreen(new FrozenGame(getGameApplet()));
                             }
                     }
+
+					boolean fire = false;
+					try {
+						if (SerialTest.playerInput.length() > 1 && SerialTest.playerInput.charAt(0) == 'f' && SerialTest.playerInput.charAt(2) == '1') {
+							fire = true;
+						}
+
+						if ( fire ) {
+							((LevelManager)getGameApplet().getGameContext().getObject("levelManager")).goToFirstLevel();
+							gameInitialized = false;
+							getGameApplet().setCurrentScreen(new FrozenGame(getGameApplet()));
+						}
+					}
+					catch (NullPointerException e) {
+						//nothing
+					}
+
                 }
                 else {
                     if (keyCodes.length == 0) {

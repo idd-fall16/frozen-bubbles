@@ -121,6 +121,9 @@ public class FrozenBubble extends GameApplet {
 	}	
 
 	public static void main(String[] args) {
-		new AppletFrame("Frozen Bubble v1.0.0", new FrozenBubble(), 640, 480);            
+		new AppletFrame("Frozen Bubble v1.0.0", new FrozenBubble(), 640, 480);
+		SerialTest cannonInput = new SerialTest();
+		cannonInput.initialize();
+		System.out.println("Started Serial sensing");
     }
 }

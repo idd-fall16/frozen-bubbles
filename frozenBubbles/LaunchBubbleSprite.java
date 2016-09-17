@@ -165,13 +165,14 @@ public class LaunchBubbleSprite extends Sprite {
 	}
 	
 	public void changeDirection(int newDirection) {
+//        int converted = (int)((newDirection + 90)/(180)*(76) + 2);
+        System.out.println("changeDirection to " + Integer.toString(newDirection));
         currentDirection = newDirection;
    	}
 	
 	public void paint(Graphics g, GameApplet applet) {
 		Rectangle r = this.getSpriteArea();
-		
-		g.setClip(r);
+        g.setClip(r);
 		g.drawImage(backgroundImage, 276, 362-currentDirection*76, applet);
         g.setClip(302, 390, 32, 32);
         if (FrozenBubble.getMode() == FrozenBubble.GAME_NORMAL) {
