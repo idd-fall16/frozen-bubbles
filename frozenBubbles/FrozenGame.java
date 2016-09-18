@@ -566,9 +566,7 @@ public class FrozenGame extends GameScreen
 			else if (moveHorizontal)
 			{
 				System.out.println("in moveHorizontal");
-//				System.out.println("launchBubblePosition = " + Integer.toString(launchBubblePosition));
 				launchBubblePosition = (int)((move[HORIZONTAL_MOVE] + 90.) / 180 * 76 + 2);
-//				launchBubblePosition = 40;
 				System.out.println("launchBubblePosition = " + Integer.toString(launchBubblePosition));
 				System.out.println("launchBubblePosition >> 1 = " + Integer.toString(launchBubblePosition >> 1));
 				launchBubble.changeDirection(launchBubblePosition >> 1);
@@ -578,7 +576,6 @@ public class FrozenGame extends GameScreen
 				else {
 					penguin.updateState(PenguinSprite.STATE_TURN_RIGHT);
 				}
-//				penguin.updateState(PenguinSprite.STATE_TURN_LEFT);
 				moveHorizontal = false;
 			}
 			else if (move[HORIZONTAL_MOVE] == KEY_LEFT)
@@ -592,16 +589,6 @@ public class FrozenGame extends GameScreen
 				launchBubble.changeDirection(launchBubblePosition >> 1);
 				penguin.updateState(PenguinSprite.STATE_TURN_LEFT);
 			}
-//			else if (move[HORIZONTAL_MOVE] == KEY_RIGHT)
-//			{
-//				System.out.println("launchBubblePosition = " + Integer.toString(launchBubblePosition));
-//				if (launchBubblePosition<78)
-//				{
-//					launchBubblePosition++;
-//				}
-//				launchBubble.changeDirection(launchBubblePosition >> 1);
-//				penguin.updateState(PenguinSprite.STATE_TURN_RIGHT);
-//			}
 			else
 			{
 				penguin.updateState(PenguinSprite.STATE_VOID);
