@@ -46,6 +46,7 @@
 import net.library.jiga.*;
 
 import java.awt.*;
+import java.lang.InterruptedException;
 import java.lang.NullPointerException;
 import java.util.Random;
 
@@ -149,7 +150,7 @@ public class SplashScreen extends GameScreen
 
 					boolean fire = false;
 					try {
-						if (SerialTest.playerInput.length() > 1 && SerialTest.playerInput.charAt(0) == 'f' && SerialTest.playerInput.charAt(2) == '1') {
+						if (SerialTest.playerInput.length() == 3 && SerialTest.playerInput.charAt(0) == 'f' && SerialTest.playerInput.charAt(2) == '1') {
 							fire = true;
 						}
 

@@ -413,8 +413,6 @@ public class FrozenGame extends GameScreen
 		int[] move = new int[2];
 		boolean newModeKeyState = false;
         boolean newSoundKeyState = false;
-//		System.out.println("first char = " + SerialTest.playerInput.charAt(0));
-//		System.out.println("length of keyCodes = " + Integer.toString(keyCodes.length));
 		for (int i=0 ; i<keyCodes.length ; i++)
 		{
 			int current = keyCodes[i];
@@ -428,8 +426,6 @@ public class FrozenGame extends GameScreen
             }                        
                         
 			if (current == KEY_LEFT || current == KEY_RIGHT)
-//			System.out.println("first char = " + SerialTest.playerInput.charAt(0));
-//			if (SerialTest.playerInput.charAt(0) == 'p')
 			{
 				if (Integer.parseInt(SerialTest.playerInput.substring(2)) > 0) {
 					current = KEY_RIGHT;
@@ -447,14 +443,8 @@ public class FrozenGame extends GameScreen
 					move[HORIZONTAL_MOVE] = 0;
 				}
 			}
-//
-//			if (current == SPACE || current == KEY_SHIFT)
-//			{
-//				move[FIRE] = SPACE;
-//			}
 		}
 
-//		System.out.println("first char = " + SerialTest.playerInput.charAt(0));
 		int value = Integer.parseInt(SerialTest.playerInput.substring(2));
 		boolean moveHorizontal = false;
 		System.out.println("value = " + Integer.toString(value));
@@ -462,28 +452,10 @@ public class FrozenGame extends GameScreen
 		if (SerialTest.playerInput.charAt(0) == 'p' && (value > prevAngle + 2 || value < prevAngle - 2))
 		{
 			System.out.println("REQUEST CANNON MOVE");
-//			int current = 0;
-//
-//			if (value > prevAngle+2) {
-//				current = KEY_RIGHT;
-//				System.out.println("TURN RIGHT");
-//			}
-//			else if (value < prevAngle-2) {
-//				current = KEY_LEFT;
-//				System.out.println("TURN LEFT");
-//			}
-
-//			if (Integer.parseInt(SerialTest.playerInput.substring(2)) > 0) {
-//				current = KEY_RIGHT;
-//			}
-//			else {
-//				current = KEY_LEFT;
-//			}
 
 			if (move[HORIZONTAL_MOVE] == 0)
 			{
-				move[HORIZONTAL_MOVE] = value;
-//				move[HORIZONTAL_MOVE] = current;
+				move[HORIZONTAL_MOVE] = value * -1;
 			}
 			else
 			{
@@ -496,13 +468,7 @@ public class FrozenGame extends GameScreen
 
 		if (SerialTest.playerInput.charAt(0) == 'f' && SerialTest.playerInput.charAt(2) == '1')
 		{
-//			if (SerialTest.playerInput.charAt(2) == '1' && firing == false) {
 			move[FIRE] = SPACE;
-//				firing = true;
-//			}
-//			else if (SerialTest.playerInput.charAt(2) == '0' ) {
-//				firing = false;
-//			}
 		}
 
 		
