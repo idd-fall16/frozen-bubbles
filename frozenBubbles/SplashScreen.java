@@ -87,8 +87,8 @@ public class SplashScreen extends GameScreen
 		font = (GameFont)gameApplet.getGameContext().getObject("bubbleFont");
 		
 		flashingMessage = new TextSprite[3];
-		flashingMessage[0] = new TextSprite(new Rectangle(289, 383, 100, 22), font, "PRESS");
-		flashingMessage[1] = new TextSprite(new Rectangle(300, 407, 100, 22), font, "FIRE");
+		flashingMessage[0] = new TextSprite(new Rectangle(289, 383, 100, 22), font, "FIRE");
+		flashingMessage[1] = new TextSprite(new Rectangle(300, 407, 100, 22), font, "CANNON");
 		flashingMessage[2] = new TextSprite(new Rectangle(276, 430, 100, 22), font, "TO START");
 		for (int i=0 ; i<3 ; i++)
 		{

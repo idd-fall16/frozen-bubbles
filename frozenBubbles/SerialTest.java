@@ -33,8 +33,6 @@ public class SerialTest implements SerialPortEventListener {
 
     public static String playerInput;
 
-//    public static String fire;
-
     public void initialize() {
 
         CommPortIdentifier portId = null;
@@ -104,7 +102,7 @@ public class SerialTest implements SerialPortEventListener {
                 System.err.println(e.toString());
             }
         }
-        // Ignore all the other eventTypes, but you should consider the other ones.
+
     }
 
     public static void main(String[] args) throws Exception {

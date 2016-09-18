@@ -69,6 +69,7 @@ public class FrozenGame extends GameScreen
     public final static int KEY_S = 83;
 
     boolean modeKeyPressed, soundKeyPressed;
+	boolean firing = false;
 
 	int prevAngle = 0; //for cannon
         
@@ -495,7 +496,13 @@ public class FrozenGame extends GameScreen
 
 		if (SerialTest.playerInput.charAt(0) == 'f' && SerialTest.playerInput.charAt(2) == '1')
 		{
+//			if (SerialTest.playerInput.charAt(2) == '1' && firing == false) {
 			move[FIRE] = SPACE;
+//				firing = true;
+//			}
+//			else if (SerialTest.playerInput.charAt(2) == '0' ) {
+//				firing = false;
+//			}
 		}
 
 		
